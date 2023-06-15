@@ -20,18 +20,12 @@ jobs:
         username: ${{ secrets.USER_DEV }}
         password: ${{ secrets.PWD_DEV }}
     - run: |
-        docker build . -t ${{ secrets.REGISTRY_DEV }}/theapp:latest
-        docker push ${{ secrets.REGISTRY_DEV }}/theapp:latest
+        docker build . -t ${{ secrets.REGISTRY_DEV }}/theapp:${{ github.sha }}
+        docker push ${{ secrets.REGISTRY_DEV }}/theapp:${{ github.sha }}
     
     - name: 'Deploy to ACI'
-      uses: azure/aci-deploy@v1
+      uses: azure/webapps-deploy@v2
       with:
-        resource-group: ${{ secrets.RG_DEV }}
-        dns-name-label: ${{ secrets.RG_DEV }}${{ github.run_number }}
-        image: ${{ secrets.REGISTRY_DEV }}/theapp:latest
-        registry-login-server: ${{ secrets.REGISTRY_DEV }}
-        registry-username: ${{ secrets.USER_DEV }}
-        registry-password: ${{ secrets.PWD_DEV }}
-        name: theapp
-        location: 'east us'
+        app-name: launchdev
+        images: ${{ secrets.REGISTRY_DEV }}/theapp:${{ github.sha }}
         
