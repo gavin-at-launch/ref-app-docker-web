@@ -22,4 +22,16 @@ jobs:
     - run: |
         docker build . -t ${{ secrets.REGISTRY_DEV }}/theapp:latest
         docker push ${{ secrets.REGISTRY_DEV }}/theapp:latest
+    
+    - name: 'Deploy to ACI'
+      uses: azure/aci-deploy@v1
+      with:
+        resource-group: ${{ secrets.RG_DEV }}
+        dns-name-label: ${{ secrets.RG_DEV }}${{ github.run_number }}
+        image: ${{ secrets.REGISTRY_DEV }}/theapp:latest
+        registry-login-server: ${{ secrets.REGISTRY_DEV }}
+        registry-username: ${{ secrets.USER_DEV }}
+        registry-password: ${{ secrets.PWD_DEV }}
+        name: theapp
+        location: 'east us'
         
