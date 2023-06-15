@@ -10,6 +10,6 @@ jobs:
       uses: actions/checkout@main
       
     - name: 'Login to Azure'
-      uses: azure/actions/login@v1
+      uses: azure/login@v1
       with:
         creds: ${{ secrets.AZ_CRED_DEV }}
