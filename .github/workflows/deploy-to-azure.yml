@@ -21,4 +21,5 @@ jobs:
         password: ${{ secrets.PWD_DEV }}
     - run: |
         docker build . -t ${{ secrets.REGISTRY_DEV }}/theapp:${{ github.sha }}
+        docker push ${{ secrets.REGISTRY_DEV }}/theapp:${{ github.sha }}
         
