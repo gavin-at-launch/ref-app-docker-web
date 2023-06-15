@@ -13,3 +13,12 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZ_CRED_DEV }}
+    - name: 'Build and push image'
+      uses: azure/docker-login@1
+      with:
+        login-server: ${{ secrets.REGISTRY_DEV }}
+        username: ${{ secrets.USER_DEV }}
+        password: ${{ secrets.PWD_DEV }}
+    - run: |
+        docker build . -t ${{ secrets.REGISTRY_DEV }}/theapp:${{ github.sha }}
+        
