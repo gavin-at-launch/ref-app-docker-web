@@ -26,6 +26,6 @@ jobs:
     - name: 'Deploy to ACI'
       uses: azure/webapps-deploy@v2
       with:
-        app-name: launchdev
+        app-name: launchwebdev
         images: ${{ secrets.REGISTRY_DEV }}/theapp:${{ github.sha }}
         
