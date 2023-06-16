@@ -24,5 +24,16 @@ Create the web app
 
 `az webapp create --resource-group yourgroupname --plan yourplanname --name yourappname`
 
+Add secrets to github settings (refer to the output from `ad az sp` command)
+
+Github secret key | Value to use
+--- | ---
+AZ_CRED_DEV | entire JSON output
+PWD_DEV | clientSecret
+REGISTRY_DEV | name of container registry used (i.e. yourregistryname)
+RG_DEV | name of resource group used (i.e. yourgroupname)
+USER_DEV | clientId
+
+
 
 
