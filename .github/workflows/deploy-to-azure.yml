@@ -24,6 +24,7 @@ jobs:
         docker push ${{ secrets.REGISTRY_DEV }}/theapp:${{ github.sha }}
     
     - name: 'Deploy to ACI'
+      if: ${{ vars.INIT_RUN != 'true' }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: launchwebdev
