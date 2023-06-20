@@ -26,17 +26,15 @@ REGISTRY_DEV | login server of contain registry (i.e. yourregistryname.azurecr.i
 RG_DEV | name of resource group used (i.e. yourgroupname)
 USER_DEV | clientId
 
-Ensure the variable for `INIT_RUN` is set to true and run the pipeline to create the registry and push the build.
+Give the service principal the proper permissions to push images
 
-~Create the appservice plan~
+`registryId=$(az acr show --name yourregistryname --resource-group yourgroupname --query id --output tsv)`
 
-`az appservice plan create --resource-group yourgroupname --name yourplanname`
+`az role assignment create --assignee clientId --scope $registryId --role AcrPush`
 
-~Create the web app~
+Ensure the variable for `INIT_RUN` is set to true and run the pipeline to create the image and push to the registry.
 
-`az webapp create --resource-group yourgroupname --plan yourplanname --name yourappname`
-
-*We will create the appservice plan and webapp in the portal for now as the above commands are incorrect*
+Create the appservice plan and webapp in the portal 
 
 1. In the portal, create a new app service.
 2. Deploy it to the resource group created above.
